@@ -5,30 +5,34 @@ import java.util.*;
 public class 기능개발 {
 
     public static void main(String[] args) {
-        int[] a = {95, 90, 99, 99, 80, 99};
-        int[] b = {1, 1, 1, 1, 1, 1};
+        int[] a = {93,30,55};
+        int[] b = {1, 30, 5};
         System.out.println(solution(a,b));
     }
 
     public static int[] solution(int[] progresses, int[] speeds) {
-        Queue<Integer> queue = new LinkedList<>();
-        for(int i=0; i<progresses.length; i++){
-            queue.add((int) (Math.ceil((100.0 - progresses[i]) / speeds[i])));
+        ArrayDeque<Integer> q = new ArrayDeque<>();
+        for (int i = 0; i < progresses.length; i++) {
+            q.add(progresses[i]);
         }
-
-        List<Integer> answer = new ArrayList<>();
-        while (!queue.isEmpty()){
-            int day = queue.poll();
-            int cnt = 1;
-
-            while(!queue.isEmpty() && day >= queue.peek()){
-                cnt++;
-                queue.poll();
+        ArrayList<Integer> list = new ArrayList<>();
+        int index = 0;
+        while(!q.isEmpty()){
+            int count = 0;
+            int mul = (int)Math.ceil((100 - q.peek()) / (double) speeds[index++]);
+            q.poll();
+            while(!q.isEmpty()){
+                if(q.peek() + speeds[index] * mul >= 100){
+                    index++;
+                    q.poll();
+                    count++;
+                }else{
+                    break;
+                }
             }
-            answer.add(cnt);
+            list.add(++count);
         }
-
-        return answer.stream().mapToInt(Integer::intValue).toArray();
+        return list.stream().mapToInt(Integer::intValue).toArray();
     }
 }
 
