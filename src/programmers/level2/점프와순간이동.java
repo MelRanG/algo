@@ -8,8 +8,6 @@ public class 점프와순간이동 {
             if(n % 2 != 0) ans++;
             n /= 2;
         }
-
-
         return ans;
     }
 }
