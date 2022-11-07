@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class 뉴스클러스터링 {
-    static int result;
+
     public static void main(String[] args) {
 
     }

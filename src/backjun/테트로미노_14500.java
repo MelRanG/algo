@@ -21,6 +21,7 @@ public class 테트로미노_14500 {
 
         arr = new int[N][M];
         visited = new boolean[N][M];
+        String s = "sdfsd";
 
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
