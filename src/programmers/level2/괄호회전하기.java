@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class 괄호회전하기 {
     public static void main(String[] args) {
-        System.out.println(solution("{{"));
+        System.out.println(solution("(()()()"));
     }
     public static int solution(String s) {
         int answer = 0;
