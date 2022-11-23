@@ -10,14 +10,21 @@ class 스킬트리 {
             int lastIndex = 0;
             for(int j = 0; j < skill_trees[i].length(); j++){
                 //B
-                int index = skill.indexOf(skill_trees[i].charAt(j));
-                if(index == -1) continue;
-                if(index == lastIndex) lastIndex++;
-                else check = false;
+                char word = skill_trees[i].charAt(j);
+                for(int k = 0; k < arr.length; k++){
+                    //C
+                    if(word == arr[k]){
+                        if(lastIndex == k){
+                            lastIndex++;
+                        }else{
+                            check = false;
+                            break;
+                        }
+                    }
+                }
             }
             if(check) answer++;
         }
         return answer;
     }
-
 }
