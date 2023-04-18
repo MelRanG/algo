@@ -13,10 +13,8 @@ class Main {
         char[] arr = s.toCharArray();
         for (int i = 0; i < N; i++) {
             if(arr[i] == 'P'){
-                int start = i-M;
-                int end = i+M;
-                if(start < 0) start = 0;
-                if(end >= N) end = N-1;
+                int start = Math.max(i-M, 0);
+                int end = Math.min(i+M, N-1);
                 for (int j = start; j <= end; j++) {
                     if(arr[j] == 'H') {
                         arr[j] = 'C';
