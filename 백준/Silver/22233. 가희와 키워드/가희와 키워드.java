@@ -9,16 +9,16 @@ class Main {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
 
-        HashMap<String, Integer> map = new HashMap<>();
+        HashSet<String> set = new HashSet<>();
         for (int i = 0; i < N; i++) {
-            map.put(br.readLine(), 1);
+            set.add(br.readLine());
         }
         for (int i = 0; i < M; i++) {
             String[] arr = br.readLine().split(",");
             for (int j = 0; j < arr.length; j++) {
-                if(map.containsKey(arr[j]) && map.get(arr[j]) == 1){
+                if(set.contains(arr[j])){
                     N--;
-                    map.put(arr[j],0);
+                    set.remove(arr[j]);
                 }
             }
             System.out.println(N);
