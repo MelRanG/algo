@@ -10,7 +10,7 @@ class Main {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
         int[] arr = new int[N];
-        HashMap<Integer, Integer> map = new HashMap<>();
+        int[] arr2 = new int[100001];
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
@@ -20,12 +20,12 @@ class Main {
         int max = 0;
         int result = 0;
         for (int i = 0; i < N; i++) {
-            map.put(arr[i], map.getOrDefault(arr[i], 0)+1);
-            max = Math.max(max, map.get(arr[i]));
+            arr2[arr[i]]++;
+            max = Math.max(max, arr2[arr[i]]);
             while (max > M){
-                map.put(arr[left], map.get(arr[left])-1);
+                arr2[arr[left]]--;
                 left++;
-                max = map.get(arr[i]);
+                max = arr2[arr[i]];
             }
             result = Math.max(result, (i - left) + 1);
         }
