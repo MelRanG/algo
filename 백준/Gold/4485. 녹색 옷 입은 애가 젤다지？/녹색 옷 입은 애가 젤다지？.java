@@ -36,7 +36,6 @@ class Main {
             int y = node[0];
             int x = node[1];
             int value = node[2];
-            if(visited[y][x] < value) continue;
 
             for(int i=0; i<4; i++){
                 int ny = y + dy[i];
