@@ -1,76 +1,52 @@
+import java.io.*;
+import java.util.*;
+class Main {
+    static int[][] visited, arr;
+    static int[] dy = {1,-1,0,0};
+    static int[] dx = {0,0,1,-1};
+    static int N;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int cnt = 0;
+        while (true){
+            N = Integer.parseInt(br.readLine());
+            if(N == 0) break;
+            arr = new int[N][N];
+            visited = new int[N][N];
+            for (int i = 0; i < N; i++) {
+                StringTokenizer st = new StringTokenizer(br.readLine());
+                for (int j = 0; j < N; j++) {
+                    arr[i][j] = Integer.parseInt(st.nextToken());
+                }
+                Arrays.fill(visited[i],Integer.MAX_VALUE);
+            }
+            bfs();
+            cnt++;
+            System.out.printf("Problem %d: %d \n",cnt,visited[N-1][N-1]);
+        }
+    }
 
-public class Main {
+    static void bfs(){
+        PriorityQueue<int[]> q = new PriorityQueue<>((e1, e2) -> e1[2] - e2[2]);
+        q.add(new int[]{0,0,arr[0][0]});
+        visited[0][0] = arr[0][0];
+        while (!q.isEmpty()){
+            int[] node = q.poll();
+            int y = node[0];
+            int x = node[1];
+            int value = node[2];
+            if(visited[y][x] < value) continue;
 
-	static PriorityQueue<Edge> pq = new PriorityQueue<>((e1, e2) -> e1.w - e2.w);
-	static int[][] arr;
-	static int[][] distance;
-	
-	static int[] dy = {1,0,0,-1};
-	static int[] dx = {0,-1,1,0};
-	
-	public static void main(String[] args) throws Exception{
-		int index = 0;
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		while(true) {
-			int t = Integer.parseInt(br.readLine());
-			if(t == 0) break;
-			
-			arr = new int[t][t];
-			distance = new int[t][t];
-			
-			for (int i = 0; i < t; i++) {
-				StringTokenizer st = new StringTokenizer(br.readLine());
-				for (int j = 0; j < t; j++) {
-					arr[i][j] = Integer.parseInt(st.nextToken());
-				}
-			}
-			
-			for (int i = 0; i < t; i++) {
-				Arrays.fill(distance[i], Integer.MAX_VALUE);
-			}
-			distance[0][0] = arr[0][0];
-			pq.add(new Edge(0,0,arr[0][0]));
-			
-			while(!pq.isEmpty()) {
-				Edge edge = pq.poll();
-				//이미 처리된 노드라면 컨티뉴
-				if(distance[edge.y][edge.x] < edge.w) continue;
-				
-				for (int d = 0; d < 4; d++) {
-					int ny = dy[d] + edge.y;
-					int nx = dx[d] + edge.x;
-					
-					if(ny < 0 || ny >= t || nx < 0 || nx >= t) continue;
-					
-					int cost = arr[ny][nx] + edge.w;
-					if(distance[ny][nx] > cost) {
-						distance[ny][nx] = cost;
-						pq.add(new Edge(ny,nx,cost));
-					}
-				}
-			}
-			index++;
-			System.out.println("Problem "+index+": " + distance[t-1][t-1]);
-			
-		}
-	}
-
-	
-	static class Edge{
-		int y,x,w;
-
-		public Edge(int y, int x, int w) {
-			super();
-			this.y = y;
-			this.x = x;
-			this.w = w;
-		}
-	}
+            for(int i=0; i<4; i++){
+                int ny = y + dy[i];
+                int nx = x + dx[i];
+                if(ny < 0 || ny >= N || nx < 0 || nx >= N || visited[ny][nx] <= value + arr[ny][nx]) continue;
+                visited[ny][nx] = value + arr[ny][nx];
+                q.add(new int[] {ny,nx,visited[ny][nx]});
+            }
+        }
+    }
 
 }
+
