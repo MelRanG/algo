@@ -1,31 +1,30 @@
 import java.io.*;
 import java.util.*;
 class Main {
-    static int N,M;
-    static StringBuilder sb = new StringBuilder();
+    static int N,max;
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
-        while(N-- >0){
-            M = Integer.parseInt(br.readLine());
-            dfs("1",1,1,1,0);
-            sb.append("\n");
+        int t = Integer.parseInt(br.readLine());
+        while (t-- >0){
+            N = Integer.parseInt(br.readLine());
+            dfs(1,0,1,1,"1");
+            System.out.println();
         }
-        System.out.println(sb);
+
     }
 
-    static void dfs(String express,int idx, int num, int op, int sum){
-
-
-        if(idx == M){
+    static void dfs(int depth, int sum, int op,int num ,String s){
+        if(depth == N){
             sum += (op * num);
-            if(sum == 0) sb.append(express + "\n");
+            if(sum == 0) System.out.println(s);
             return;
         }
-        dfs(express + " " + (idx+1),idx+1, num*10 + (idx+1), op, sum);
-        dfs(express + "+" + (idx+1), idx+1, idx+1, 1, sum + (op * num));
-        dfs(express + "-" + (idx+1), idx+1, idx+1, -1, sum + (op * num));
+        dfs(depth+1, sum, op, num*10 + (depth+1), s + " " + (depth+1));
+        dfs(depth+1, sum + op * num,1 ,depth+1,s + "+" + (depth+1));
+        dfs(depth+1, sum + op * num,-1 ,depth+1,s + "-" + (depth+1));
     }
 
+
 }
+
