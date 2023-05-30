@@ -1,30 +1,30 @@
 import java.io.*;
 import java.util.*;
 class Main {
-    static int N,max;
+    static int N;
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(br.readLine());
-        while (t-- >0){
+        int T = Integer.parseInt(br.readLine());
+        while (T-- >0){
             N = Integer.parseInt(br.readLine());
-            dfs(1,0,1,1,"1");
+            dfs("1",0,1,1,1);
             System.out.println();
         }
-
     }
 
-    static void dfs(int depth, int sum, int op,int num ,String s){
+    static void dfs(String express, int sum, int value, int op, int depth){
         if(depth == N){
-            sum += (op * num);
-            if(sum == 0) System.out.println(s);
+            sum += (op) * value;
+            if(sum == 0){
+                System.out.println(express);
+            }
             return;
         }
-        dfs(depth+1, sum, op, num*10 + (depth+1), s + " " + (depth+1));
-        dfs(depth+1, sum + op * num,1 ,depth+1,s + "+" + (depth+1));
-        dfs(depth+1, sum + op * num,-1 ,depth+1,s + "-" + (depth+1));
+        dfs(express + " " + (depth+1), sum, value*10 + depth+1,op,depth+1);
+        dfs(express + "+"+(depth+1), sum+ op * value, depth+1, 1, depth+1);
+        dfs(express + "-"+(depth+1), sum+ op * value, depth+1, -1, depth+1);
+
     }
-
-
 }
 
