@@ -16,12 +16,9 @@ class Main {
         for (int i = 0; i < M; i++) {
             String[] arr = br.readLine().split(",");
             for (int j = 0; j < arr.length; j++) {
-                if(set.contains(arr[j])){
-                    N--;
-                    set.remove(arr[j]);
-                }
+                set.remove(arr[j]);
             }
-            System.out.println(N);
+            System.out.println(set.size());
         }
 
     }
